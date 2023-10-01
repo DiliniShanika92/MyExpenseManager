@@ -1,0 +1,19 @@
+﻿<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            xmlns:local1="clr-namespace:my_expense_manager.Views"
+            x:Class="my_expense_manager.Views.MainPage"
+             BarBackgroundColor="#084c61"
+            SelectedTabColor="White"
+            UnselectedTabColor="White"
+              Shell.NavBarIsVisible="False"
+             Shell.FlyoutItemIsVisible="False"
+         
+             android:TabbedPage.ToolbarPlacement="Bottom" 
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            
+            >
+    <!--Pages can be added as references or inline-->
+    <local1:HomePage Title="Home" IconImageSource="Home.png"  />
+    <local1:TrasactionListPage Title="List" IconImageSource="Home.png"  />
+
+</TabbedPage>

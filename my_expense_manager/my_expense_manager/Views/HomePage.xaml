@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:my_expense_manager.ViewModels"
+             x:Class="my_expense_manager.Views.HomePage"
+               Shell.FlyoutItemIsVisible="False" BackgroundImageSource="background.png">
+    <ContentPage.BindingContext>
+        <viewmodels:HomePageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content >
+        <StackLayout >
+            <StackLayout>
+                <StackLayout Padding="0" HorizontalOptions="FillAndExpand" HeightRequest="54" BackgroundColor="#084c61">
+                    <Label  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="Expense Manager" FontSize="20" TextColor="White" FontAttributes="Bold"></Label>
+                </StackLayout>
+                <ScrollView>
+                    <StackLayout Padding="15">
+                        <StackLayout HeightRequest="190" >
+                            <Frame BackgroundColor="#084c61" CornerRadius="20" VerticalOptions="FillAndExpand" HasShadow="True">
+                                <StackLayout>
+                                    <StackLayout>
+                                        <Label VerticalOptions="Center" TextColor="White" FontSize="25" FontAttributes="Bold" HorizontalOptions="Start" Text="Curret Balance"  FontFamily="R" ></Label>
+                                    </StackLayout>
+                                    <StackLayout VerticalOptions="EndAndExpand">
+                                        <Label VerticalOptions="Center" TextColor="White" FontSize="20" HorizontalOptions="Start" Text="Current Income"  FontFamily="R" ></Label>
+                                        <Label VerticalOptions="Center" TextColor="White" FontSize="20" HorizontalOptions="Start" Text="Current Expense"  FontFamily="R" ></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Margin="0,8,0,0">
+                            <StackLayout HeightRequest="50" HorizontalOptions="FillAndExpand" >
+                                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                                    <Button Command="{Binding Navigation }" Padding="10,2,10,2" HorizontalOptions="FillAndExpand" CornerRadius=" 10" Text="Add Income" TextColor="White" BackgroundColor="#084c61"></Button>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout>
+                           <StackLayout>
+                               <Image Source="HomePicture.png"></Image>
+                           </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
