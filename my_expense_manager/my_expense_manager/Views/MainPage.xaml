@@ -14,6 +14,6 @@
             >
     <!--Pages can be added as references or inline-->
     <local1:HomePage Title="Home" IconImageSource="Home.png"  />
-    <local1:TrasactionListPage Title="List" IconImageSource="Home.png"  />
+    <local1:TrasactionListPage Title="List" IconImageSource="Search.png"  />
 
 </TabbedPage>

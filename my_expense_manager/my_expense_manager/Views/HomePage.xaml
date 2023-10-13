@@ -1,48 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewmodels="clr-namespace:my_expense_manager.ViewModels"
-             x:Class="my_expense_manager.Views.HomePage"
-               Shell.FlyoutItemIsVisible="False" BackgroundImageSource="background.png">
+xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+xmlns:viewmodels="clr-namespace:my_expense_manager.ViewModels"
+x:Class="my_expense_manager.Views.HomePage"
+Shell.FlyoutItemIsVisible="False" BackgroundImageSource="background.png" 
+xmlns:local="clr-namespace:my_expense_manager.Views" >
     <ContentPage.BindingContext>
         <viewmodels:HomePageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content >
-        <StackLayout >
-            <StackLayout>
-                <StackLayout Padding="0" HorizontalOptions="FillAndExpand" HeightRequest="54" BackgroundColor="#084c61">
-                    <Label  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="Expense Manager" FontSize="20" TextColor="White" FontAttributes="Bold"></Label>
-                </StackLayout>
-                <ScrollView>
-                    <StackLayout Padding="15">
-                        <StackLayout HeightRequest="190" >
-                            <Frame BackgroundColor="#084c61" CornerRadius="20" VerticalOptions="FillAndExpand" HasShadow="True">
-                                <StackLayout>
+        <ScrollView>
+            <StackLayout >
+                <StackLayout>
+                    <local:NavBar IsButtonVisible="true" />
+                    <ScrollView>
+                        <StackLayout Padding="15">
+                            <StackLayout  >
+                                <Frame BackgroundColor="#084c61" CornerRadius="20" VerticalOptions="FillAndExpand" HasShadow="True">
                                     <StackLayout>
-                                        <Label VerticalOptions="Center" TextColor="White" FontSize="25" FontAttributes="Bold" HorizontalOptions="Start" Text="Curret Balance"  FontFamily="R" ></Label>
+                                        <Label VerticalOptions="Center" TextColor="White" FontSize="15" FontAttributes="Bold" HorizontalOptions="Start" Text="This Month"  FontFamily="R" ></Label>
+                                        <StackLayout>
+                                            <Label VerticalOptions="Center" TextColor="White" FontSize="25" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Current Balance"  FontFamily="R" ></Label>
+                                            <Label VerticalOptions="Center" TextColor="White" FontSize="35" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="{Binding Bal}"  FontFamily="B" ></Label>
+                                        </StackLayout>
+                                        <StackLayout  >
+                                            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                                                <Label VerticalOptions="EndAndExpand" TextColor="White" FontSize="20" HorizontalOptions="StartAndExpand" Text="Income"  FontFamily="R" ></Label>
+                                                <Label VerticalOptions="EndAndExpand" TextColor="White" FontSize="20" HorizontalOptions="End" Text="{Binding Income}"  FontFamily="R" ></Label>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" >
+                                                <Label VerticalOptions="EndAndExpand" TextColor="White" FontSize="20" HorizontalOptions="StartAndExpand" Text="Expense"  FontFamily="R" ></Label>
+                                                <Label VerticalOptions="EndAndExpand" TextColor="White" FontSize="20" HorizontalOptions="End" Text="{Binding Expenses}"  FontFamily="R" ></Label>
+                                            </StackLayout>
+                                        </StackLayout>
                                     </StackLayout>
-                                    <StackLayout VerticalOptions="EndAndExpand">
-                                        <Label VerticalOptions="Center" TextColor="White" FontSize="20" HorizontalOptions="Start" Text="Current Income"  FontFamily="R" ></Label>
-                                        <Label VerticalOptions="Center" TextColor="White" FontSize="20" HorizontalOptions="Start" Text="Current Expense"  FontFamily="R" ></Label>
+                                </Frame>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                                <StackLayout HorizontalOptions="FillAndExpand" >
+                                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Button Command="{Binding NaviIncome }" Padding="15,2,15,2" HorizontalOptions="FillAndExpand"   CornerRadius=" 10" Text="Add Income" TextColor="White" BackgroundColor="#084c61"></Button>
+                                            <Button Command="{Binding Navi }" Padding="15,2,15,2" HorizontalOptions="FillAndExpand"   CornerRadius=" 10" Text="Add Expense" TextColor="White" BackgroundColor="#084c61"></Button>
+                                        </StackLayout>
+                                        <Button Command="{Binding NaviCategory }" Padding="15,2,15,2" HorizontalOptions="FillAndExpand"   CornerRadius=" 10" Text="Add Category" TextColor="White" BackgroundColor="#084c61"></Button>
+                                        <Button Command="{Binding QRcmd }" Padding="15,2,15,2" HorizontalOptions="FillAndExpand"   CornerRadius=" 10" Text="QR Scan" TextColor="White" BackgroundColor="#084c61"></Button>
                                     </StackLayout>
                                 </StackLayout>
-                            </Frame>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal" Margin="0,8,0,0">
-                            <StackLayout HeightRequest="50" HorizontalOptions="FillAndExpand" >
-                                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
-                                    <Button Command="{Binding Navigation }" Padding="10,2,10,2" HorizontalOptions="FillAndExpand" CornerRadius=" 10" Text="Add Income" TextColor="White" BackgroundColor="#084c61"></Button>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout>
+                                   
+                                </StackLayout>
+                                <StackLayout>
                                 </StackLayout>
                             </StackLayout>
                         </StackLayout>
-                        <StackLayout>
-                           <StackLayout>
-                               <Image Source="HomePicture.png"></Image>
-                           </StackLayout>
-                        </StackLayout>
-                    </StackLayout>
-                </ScrollView>
+                    </ScrollView>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
-</ContentPage>
+</ContentPage>  

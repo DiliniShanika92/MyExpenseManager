@@ -1,5 +1,7 @@
-﻿using System;
+﻿using my_expense_manager.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +12,14 @@ using Xamarin.Forms.Xaml;
 namespace my_expense_manager.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class CreatTrasactionPage : ContentPage
     {
-        public HomePage()
+        public CreatTrasactionPage(bool? typr)
         {
             InitializeComponent();
-
+            BindingContext = new CreatTrasactionPageViewModel(typr);
         }
+
+        
     }
 }

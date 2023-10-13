@@ -1,12 +1,181 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="my_expense_manager.Views.TrasactionListPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:models="clr-namespace:my_expense_manager.Models" xmlns:viewmodels="clr-namespace:my_expense_manager.ViewModels"
+    x:Class="my_expense_manager.Views.TrasactionListPage" BackgroundImageSource="background.png" 
+             
+             
+    xmlns:converter="clr-namespace:my_expense_manager" xmlns:local="clr-namespace:my_expense_manager.Views">
+    <ContentPage.BindingContext>
+        <viewmodels:TransactionListViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content >
+        <StackLayout >
+            <StackLayout>
+                <local:NavBar IsButtonVisible="true" />
+                <RefreshView
+IsRefreshing="{Binding IsBusy}"
+Command="{Binding Refresh}"
+RefreshColor="Blue"
+IsTabStop="True" >
+                    <ScrollView>
+                        <StackLayout Padding="0,0,0,0">
+                            <StackLayout Padding="10" >
+                                <Frame BackgroundColor="#0a5e79" CornerRadius="08" VerticalOptions="FillAndExpand" HasShadow="True">
+                                    <StackLayout >
+                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout HorizontalOptions="FillAndExpand" >
+                                                <Frame HasShadow="True"  Padding="10,2,10,2" CornerRadius="10"   BackgroundColor="{AppThemeBinding Light=White, Dark=White    }">
+                                                    <DatePicker x:Name="datePicker" Date="{Binding Date}" Format="yyyy MMMM" />
+                                                </Frame>
+                                            </StackLayout>
+                                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10,0,0,0" >
+                                                <Button Command="{Binding FilterCmd }" Padding="10,2,10,2" HorizontalOptions="FillAndExpand"   CornerRadius=" 10" Text="Filter" TextColor="White" BackgroundColor="#084c61"></Button>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout Margin="0,10,0,0">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label VerticalOptions="Center" TextColor="White" FontSize="25" FontAttributes="Bold" HorizontalOptions="StartAndExpand" Text="Current Balance"  FontFamily="R" ></Label>
+                                                <Label VerticalOptions="Center" TextColor="White" FontSize="25" FontAttributes="Bold" HorizontalOptions="End" Text="{Binding Bal}"  FontFamily="R" ></Label>
+                                            </StackLayout>
+                                            <StackLayout  >
+                                                <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                                                    <Label VerticalOptions="EndAndExpand" TextColor="White" FontSize="20" HorizontalOptions="StartAndExpand" Text="Income"  FontFamily="R" ></Label>
+                                                    <Label VerticalOptions="EndAndExpand" TextColor="White" FontSize="20" HorizontalOptions="End" Text="{Binding Income}"  FontFamily="R" ></Label>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal" >
+                                                    <Label VerticalOptions="EndAndExpand" TextColor="White" FontSize="20" HorizontalOptions="StartAndExpand" Text="Expense"  FontFamily="R" ></Label>
+                                                    <Label VerticalOptions="EndAndExpand" TextColor="White" FontSize="20" HorizontalOptions="End" Text="{Binding Expenses}"  FontFamily="R" ></Label>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout Padding="10,20,10,20" VerticalOptions="FillAndExpand">
+                                    <Label HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" FontSize="18" Text="All Transaction" TextColor="#084c61" FontFamily="R"></Label>
+                                    <StackLayout Padding="0" >
+                                        <StackLayout HeightRequest="400" Padding="0" >
+                                            <StackLayout   >
+                                                <CollectionView
+                                                    ItemsSource="{Binding TrnsList}"
+                                                    SelectedItem="{Binding SelectedItem}"
+                                                    SelectionChangedCommand="{Binding Navi}"
+                                                    SelectionMode="Single"
+                                                    HorizontalOptions="FillAndExpand">          
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackLayout Padding="0,0,0,0" >
+                                                                <Grid VerticalOptions="CenterAndExpand" >
+                                                                    <SwipeView BackgroundColor="Transparent">
+                                                                        <SwipeView.RightItems >
+                                                                            <SwipeItems >
+                                                                                <SwipeItem Text="Update"
+                                                                                    BackgroundColor="#0a5e79"
+                                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TransactionListViewModel}},
+                                                                                    Path=UpdateCmd}"
+                                                                                    CommandParameter="{Binding }"/>         
+                                                                                <SwipeItem Text="Delete" 
+                                                                                    BackgroundColor="#0a5e79"
+                                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TransactionListViewModel}},
+                                                                                    Path=DeleteCmd}"
+                                                                                    CommandParameter="{Binding .}" />
+                                                                            </SwipeItems>
+                                                                        </SwipeView.RightItems>
+                                                                        <ContentView BackgroundColor="Transparent"  x:DataType="models:transaction">
+                                                                            <Grid>
+                                                                                <StackLayout Padding="0,0,0,0" BackgroundColor="Transparent" >
+                                                                                    <Frame IsVisible="{Binding TransactionType}" BackgroundColor="{AppThemeBinding Light=#f8f9fa, Dark=#f8f9fa    }" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="5"  HasShadow="True">
+                                                                                        <StackLayout Orientation="Vertical">
+                                                                                            <StackLayout Orientation="Horizontal" Padding="7,0,7,0" >
+                                                                                                <StackLayout HorizontalOptions="FillAndExpand">
+                                                                                                    <StackLayout IsVisible="{Binding TransactionType}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                                                                                                        <Label  Text="Income" FontSize="17" TextColor="{AppThemeBinding Light=#058c42, Dark=#058c42    }" FontFamily="R" ></Label>
+                                                                                                    </StackLayout>
+                                                                                                    <StackLayout  IsVisible="{Binding TransactionType, Converter={StaticResource BooleanNegationConverter}}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                                                                                                        <Label  Text="Expense" FontSize="17" TextColor="{AppThemeBinding Light=#058c42, Dark=#058c42    }" FontFamily="R" ></Label>
+                                                                                                    </StackLayout>
+                                                                                                </StackLayout>
+                                                                                                <StackLayout HorizontalOptions="End"  VerticalOptions="CenterAndExpand">
+                                                                                                    <Label  Text="{Binding DateAndTime, StringFormat='{0:MM/dd/yyyy }'}" FontSize="15" TextColor="{AppThemeBinding Light=#058c42, Dark=#058c42    }" FontFamily="R" ></Label>
+                                                                                                </StackLayout>
+                                                                                                <StackLayout HorizontalOptions="End" VerticalOptions="CenterAndExpand">
+                                                                                                    <Label  Text="{Binding DateAndTime, StringFormat='{0:hh:mm tt}'}" FontSize="15" TextColor="{AppThemeBinding Light=#058c42, Dark=#058c42    }" FontFamily="R" ></Label>
+                                                                                                </StackLayout>
+                                                                                            </StackLayout>
+                                                                                            <StackLayout Orientation="Horizontal"  Padding="7,0,7,0" >
+                                                                                                <StackLayout HorizontalOptions="StartAndExpand">
+                                                                                                    <Label  Text="{Binding Category}" FontSize="35" TextColor="{AppThemeBinding Light=#058c42, Dark=#058c42    }" FontFamily="B" ></Label>
+                                                                                                </StackLayout>
+                                                                                                <StackLayout HorizontalOptions="EndAndExpand">
+                                                                                                    <Label  Text="{Binding Amount}" FontSize="35" TextColor="{AppThemeBinding Light=#058c42, Dark=#058c42    }" FontFamily="B" ></Label>
+                                                                                                </StackLayout>
+                                                                                            </StackLayout>
+                                                                                            <StackLayout Orientation="Vertical"  Padding="7,0,7,0">
+                                                                                                <StackLayout HorizontalOptions="StartAndExpand">
+                                                                                                    <Label  Text="{Binding Discription}" FontSize="12" TextColor="{AppThemeBinding Light=#058c42, Dark=#058c42    }" FontFamily="R" ></Label>
+                                                                                                </StackLayout>
+                                                                                            </StackLayout>
+                                                                                        </StackLayout>
+                                                                                    </Frame>
+                                                                                    <Frame  IsVisible="{Binding TransactionType, Converter={StaticResource BooleanNegationConverter}}"  BackgroundColor="{AppThemeBinding Light=#f8f9fa, Dark=#f8f9fa    }" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="5"  HasShadow="True">
+                                                                                        <StackLayout Orientation="Vertical">
+                                                                                            <StackLayout Orientation="Horizontal" Padding="7,0,7,0">
+                                                                                                <StackLayout HorizontalOptions="FillAndExpand" >
+                                                                                                    <StackLayout VerticalOptions="CenterAndExpand" IsVisible="{Binding TransactionType}" HorizontalOptions="StartAndExpand">
+                                                                                                        <Label  Text="Income" FontSize="17" TextColor="{AppThemeBinding Light=#d90429, Dark=#d90429    }" FontFamily="R" ></Label>
+                                                                                                    </StackLayout>
+                                                                                                    <StackLayout VerticalOptions="CenterAndExpand" IsVisible="{Binding TransactionType, Converter={StaticResource BooleanNegationConverter}}" HorizontalOptions="StartAndExpand">
+                                                                                                        <Label  Text="Expense" FontSize="17" TextColor="{AppThemeBinding Light=#d90429, Dark=#d90429    }" FontFamily="R" ></Label>
+                                                                                                    </StackLayout>
+                                                                                                </StackLayout>
+                                                                                                <StackLayout VerticalOptions="Center" HorizontalOptions="End">
+                                                                                                    <Label  Text="{Binding DateAndTime, StringFormat='{0:MM/dd/yyyy }'}" FontSize="15" TextColor="{AppThemeBinding Light=#d90429, Dark=#d90429    }" FontFamily="R" ></Label>
+                                                                                                </StackLayout>
+                                                                                                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="End">
+                                                                                                    <Label  Text="{Binding DateAndTime, StringFormat='{0:hh:mm tt}'}" FontSize="15" TextColor="{AppThemeBinding Light=#d90429, Dark=#d90429    }" FontFamily="R" ></Label>
+                                                                                                </StackLayout>
+                                                                                            </StackLayout>
+                                                                                            <StackLayout Orientation="Horizontal" Padding="7,0,7,0">
+                                                                                                <StackLayout HorizontalOptions="StartAndExpand">
+                                                                                                    <Label  Text="{Binding Category}" FontSize="35" TextColor="{AppThemeBinding Light=#d90429, Dark=#d90429    }" FontFamily="B" ></Label>
+                                                                                                </StackLayout>
+                                                                                                <StackLayout HorizontalOptions="EndAndExpand">
+                                                                                                    <Label  Text="{Binding Amount}" FontSize="35" TextColor="{AppThemeBinding Light=#d90429, Dark=#d90429    }" FontFamily="B" ></Label>
+                                                                                                </StackLayout>
+                                                                                            </StackLayout>
+                                                                                            <StackLayout Orientation="Vertical"  Padding="7,0,7,0" >
+                                                                                                <StackLayout  HorizontalOptions="StartAndExpand" >
+                                                                                                    <Label  Text="{Binding Discription}" FontSize="12" TextColor="{AppThemeBinding Light=#d90429, Dark=#d90429    }" FontFamily="R" ></Label>
+                                                                                                </StackLayout>
+                                                                                            </StackLayout>
+                                                                                        </StackLayout>
+                                                                                    </Frame>
+                                                                                </StackLayout>
+                                                                            </Grid>
+                                                                        </ContentView>
+                                                                    </SwipeView>
+                                                                </Grid>
+                                                            </StackLayout>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </RefreshView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

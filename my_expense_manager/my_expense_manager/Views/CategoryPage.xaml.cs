@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace my_expense_manager.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateTrasactionPage : ContentPage
+    public partial class CategoryPage : ContentPage
     {
-        public CreateTrasactionPage()
+        public CategoryPage()
         {
             InitializeComponent();
         }

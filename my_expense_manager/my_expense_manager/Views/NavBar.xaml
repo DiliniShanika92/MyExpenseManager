@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:views="clr-namespace:my_expense_manager.Views" x:DataType="views:NavBar"
+             x:Class="my_expense_manager.Views.NavBar">
+
+    <StackLayout Padding="0" HorizontalOptions="FillAndExpand" HeightRequest="54" BackgroundColor="#084c61" Orientation="Horizontal">
+        <Label  HorizontalOptions="StartAndExpand" Margin="20,0,0,0" VerticalOptions="CenterAndExpand" Text="Expense Manager" FontSize="20" TextColor="White" FontAttributes="Bold"></Label>
+        <Button x:Name="myButton" Clicked="NavigateMethod" HorizontalOptions="End"   CornerRadius=" 10" Text="Add" TextColor="White" BackgroundColor="#084c61"  ></Button>
+
+    </StackLayout>
+
+</ContentView>
